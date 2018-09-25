@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     tools {
@@ -14,6 +15,11 @@ pipeline {
                     junit '**/target/*-reports/TEST-*.xml'
                     step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
                 }
+            }
+        }
+        stage('Sonar') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
             }
         }
     }
