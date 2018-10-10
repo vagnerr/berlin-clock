@@ -22,5 +22,10 @@ pipeline {
                 sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
             }
         }
+        stage('deploy') {
+            steps {
+                    sh "mvn deploy -DskipTests"
+            }
+        }
     }
 }
